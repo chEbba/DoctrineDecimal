@@ -10,7 +10,7 @@
 namespace Che\Doctrine\Decimal\Tests;
 
 use Che\Doctrine\Decimal\DecimalObjectType;
-use Che\Math\Decimal\BigDecimal;
+use Che\Math\Decimal\Decimal;
 use Doctrine\DBAL\Types\Type;
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -78,7 +78,7 @@ class DecimalObjectTypeTest extends TestCase
      */
     public function convertToDatabaseUsesValue()
     {
-        $value = new BigDecimal('123.45');
+        $value = new Decimal('123.45');
 
         $converted = $this->type->convertToDatabaseValue($value, $this->platform);
 
@@ -107,13 +107,13 @@ class DecimalObjectTypeTest extends TestCase
     /**
      * @test convertToPHPValue creates big decimal with auto scale
      */
-    public function convertToPHPCreatesBigDecimal()
+    public function convertToPHPCreatesDecimal()
     {
         $value = '123.4500';
 
         $converted = $this->type->convertToPHPValue($value, $this->platform);
 
-        $this->assertInstanceOf('Che\Math\Decimal\BigDecimal', $converted);
+        $this->assertInstanceOf('Che\Math\Decimal\Decimal', $converted);
         $this->assertSame($value, $converted->value());
     }
 

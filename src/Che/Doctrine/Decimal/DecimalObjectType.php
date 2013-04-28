@@ -9,7 +9,7 @@
 
 namespace Che\Doctrine\Decimal;
 
-use Che\Math\Decimal\BigDecimal;
+use Che\Math\Decimal\Decimal;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -50,7 +50,7 @@ class DecimalObjectType extends Type
             return null;
         }
 
-        if (!$value instanceof BigDecimal) {
+        if (!$value instanceof Decimal) {
             throw new DBALException('Value is not an instance of "BigDecimal"');
         }
 
@@ -67,9 +67,9 @@ class DecimalObjectType extends Type
         }
 
         try {
-            return new BigDecimal($value);
+            return new Decimal($value);
         } catch (\Exception $e) {
-            throw ConversionException::conversionFailedFormat($value, $this->getName(), BigDecimal::STRING_FORMAT_REGEX);
+            throw ConversionException::conversionFailedFormat($value, $this->getName(), Decimal::STRING_FORMAT_REGEX);
         }
     }
 }
